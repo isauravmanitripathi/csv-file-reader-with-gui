@@ -33,7 +33,10 @@ public class GUI implements ActionListener{
     private Dimension screenSize;
     private boolean csv;
 
+    public GUI() {
+        this.model = ModelFactory.getModel();
 
+    }
 
 
 
