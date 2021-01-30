@@ -14,6 +14,14 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-public class GUI {
+public class GUI implements ActionListener{
+
+    private int ON_CLOSE;
+    private Model model;
+    private JFileChooser fileChooser;
+    private FileNameExtensionFilter filter;
+    private JSplitPane splitPane;
+    private JTextField textField;
+
 
 }
