@@ -22,6 +22,20 @@ public class GUI implements ActionListener{
     private FileNameExtensionFilter filter;
     private JSplitPane splitPane;
     private JTextField textField;
+    private TableRowSorter<TabelModel> rowSorter;
+    private JTable table;
+    private JFrame jFrame;
+    private JMenu menuFileButton;
+    private JMenuItem optionMenuOpen;
+    private JLabel welcome;
+    private JPanel boxPanel;
+    private JCheckBox[] boxes;
+    private Dimension screenSize;
+    private boolean csv;
+
+
+
+
 
 
 }
