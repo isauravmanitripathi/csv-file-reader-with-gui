@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 
 public class GUI implements ActionListener{
 
@@ -51,6 +52,48 @@ public class GUI implements ActionListener{
         this.filter = new FileNameExtensionFilter("csv","csv");
         this.ON_CLOSE = ON_CLOSE;
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent event) {
+
+        if (!(event.getSource() instanceof JCheckBox)) {
+            String name = ((Component ) event.getSource()).getName();
+            if ("Open".equals (name)) {
+                fileChooser.addChoosableFileFilter(filter); // this will only allow CSV files
+                fileChooser.setAcceptAllFileFilterUsed(false);
+                if (fileChooser.showOpenDialog(splitPane) == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
+                    if (file.getName().toLowerCase().endsWith(".csv")) {
+                        csv = true;
+
+                        try {
+                            model.readCSV(file);
+                            updateFrame(model.getFrame(). file.getName());
+                        } catch (Exception e){
+                            JOptionPane.showMessageDialog(new JFrame("ERROR Message"), "Program was unable to read the choosen file", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+
+                    if (file.getName().toLowerCase().endsWith(".json")) {
+                        csv = true;
+
+                        try {
+                            model.readCSV(file);
+                            updateFrame(model.getFrame(). file.getName());
+                        } catch (Exception e){
+                            JOptionPane.showMessageDialog(new JFrame("ERROR Message"), "Program was unable to read the choosen file", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+
+            } else if ("Save as JSON".equals(name)) { // this is the part where the user clicks save as json button
+                fileChooser.resetChoosableFileFilters();
+                filter = new FileNameExtensionFilter("json", "json");
+                fileChooser.addChoosableFileFilter(filter);
+                fileChooser.setDialogTitle("Which directory to save");
+                int userSelection = fileChooser.showSaveDialog(splitPane); // open a file dialog to user can naviagte to target directory
+        }
     }
 
 
