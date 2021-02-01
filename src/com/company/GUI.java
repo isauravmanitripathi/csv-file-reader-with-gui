@@ -219,6 +219,28 @@ public class GUI implements ActionListener{
 
     }
 
+    // this is the part where we create checkboxes to filter the data
+
+    private void createCheckBoxes(String [] columnNames) {
+        boxes = new JCheckBox[columnNames.length];
+        boxPanel = new JPanel();
+        boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
+        int i = 0;
+        while (i < columnNames.length) {
+            boxes[i] = new JCheckBox(columnNames[i]);
+            boxes[i].setFont(new Font("ComicSansMS", Font.PLAIN, boxes[i].getFont().getSize()));
+            boxes[i].setBorder(new EmptyBorder(0,0,0,0));
+            boxes[i].setSelected(true);
+            boxes[i].addActionListener(this);
+            boxPanel.add(boxes[i]);
+            i++;
+        }
+        jFrame.getContentPane().add(BorderLayout.EAST, boxPanel);
+    }
+
+
+
+
 
 
 }
