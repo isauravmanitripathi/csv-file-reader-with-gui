@@ -108,23 +108,54 @@ public class GUI implements ActionListener{
                     }
                 }
             } else {
-                if (! "New Window..".equals(name)) {
+                if (!"New Window..".equals(name)) {
                     if ("Exit".equals(name)) {
                         System.exit(0); // end program here
                     }
                 } else {
                     new GUI(JFrame.DISPOSE_ON_CLOSE).run(); // this will open a new GUI
                 }
-        }
-    } else {
+            }
+        } else {
             for (int i = 0; i < boxes.length; i++) {
                 if (boxes[i].isSelected()) show(i);
                 else if (!boxes[i].isSelected()) hide(i);
 
             }
         }
+    }
 
+    // Diplaying the date and updating the GUI
 
+    private void updateFrame(DataFrame dataFrame, String newName) throws Exception {
+        jFrame.setTitle(newName); // this will the change the window title
+        jFrame.remove(welcome);
+        menuFileButton.remove(optionMenuOpen); // removing no longer needed components
+        JMenuItem newWindow = new JMenuItem("New Window...");
+        newWindow.setName("New Window...");
+        newWindow.addActionListener(this);
+        newWindow.setFont(new Font("ComicSansMS", Font.PLAIN, newWindow.getFont().getSize()));
+        menuFileButton.add(newWindow);
+        if (!csv) {
+        } else {
+            JMenuItem saveAsJSON;
+            saveAsJSON = new JMenuItem("Save as JSON");
+            saveAsJSON.setName("Save as JSON");
+            saveAsJSON.addActionListener(this);
+            saveAsJSON.setFont(new Font("ComicSansMS", Font.PLAIN, saveAsJSON.getFont().getSize()));
+            menuFileButton.add(saveAsJSON);
+        }
 
+        JMenuItem exit = new JMenuItem("Exit");
+        exit.setName("Exit");
+        exit.addActionListener(this);
+        exit.setFont(new Font ("ComicSansMS", Font.PLAIN, exit.getFont().getSize()));
+        menuFileButton.add(exit);
+        createCheckBoxes(model.getColumnNames());
+        table = new JTable(model.getRows(), model.getColumnNames()) {
+            public boolean
+        }
+
+    }
 
 }
