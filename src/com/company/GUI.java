@@ -41,6 +41,15 @@ public class GUI implements ActionListener{
         this.filter = new FileNameExtensionFilter("csv","csv" ,"file");
         this.ON_CLOSE = JFrame.EXIT_ON_CLOSE;
 
+    }
+
+    public GUI(int ON_CLOSE) {
+        this.model = new Model();
+        this.screenSize = Toolkit.getDefaultToolkit().getScreenSize();;
+        this.jFrame = new JFrame ("CSV File Reader");
+        this.fileChooser = new JFileChooser();
+        this.filter = new FileNameExtensionFilter("csv","csv");
+        this.ON_CLOSE = ON_CLOSE;
 
     }
 
