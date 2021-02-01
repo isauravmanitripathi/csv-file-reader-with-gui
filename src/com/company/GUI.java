@@ -238,8 +238,46 @@ public class GUI implements ActionListener{
         jFrame.getContentPane().add(BorderLayout.EAST, boxPanel);
     }
 
+    // hiding the relevant column of data
 
+    private void hide(int index) {
+        table.getColumnModel().getColumn(index).setMaxWidth(0);
+        table.getColumnModel().getColumn(index).setMinWidth(0);
+        table.getColumnModel().getColumn(index).setWidth(0);
+        table.getColumnModel().getColumn(index).setPreferredWidth(0);
+    }
 
+    private void show(int index) {
+        table.getColumnModel().getColumn(index).setMaxWidth(125);
+        table.getColumnModel().getColumn(index).setMinWidth(0);
+        table.getColumnModel().getColumn(index).setWidth(125);
+        table.getColumnModel().getColumn(index).setPreferredWidth(125);
+
+    }
+    // when the program will be launched, this will initialize the gui
+
+    public void run() {
+        jFrame.setDefaultCloseOperation(this.ON_CLOSE);
+        jFrame.setSize(screenSize.width / 2, screenSize.height/2);
+        JMenuBar menuBar = new JMenuBar();
+        menuFileButton = new JMenu("file");
+        menuFileButton.setFont(new Font("ComicSansMS", Font.PLAIN, menuFileButton.getFont().getSize()));
+        menuBar.add(menuFileButton);
+        optionMenuOpen = new JMenuItem("open");
+        optionMenuOpen.setFont(new Font("ComicsSansMS", Font.PLAIN, optionMenuOpen.getFont().getSize()));
+        optionMenuOpen.setName("Open");
+        menuFileButton.add(optionMenuOpen);
+        optionMenuOpen.addActionListener(this);
+        welcome = new JLabel("<html><center>Click" + // the text when GUI is launched
+                "<br/><center><span style=\"color:#B93519;font-family: 'Courier';font-size: 25px\">File &#8594; Open</span>" +
+                "<br/><center>to load a file</center></html>", SwingConstants.CENTER);
+        welcome.setFont(new Font("ComicSansMS", Font.PLAIN, 28));
+        jFrame.getContentPane().add(BorderLayout.CENTER, welcome);
+        jFrame.getContentPane().add(BorderLayout.NORTH, menuBar);
+        jFrame.setLocationRelativeTo(null);
+        jFrame.setVisible(true);
+
+    }
 
 
 
