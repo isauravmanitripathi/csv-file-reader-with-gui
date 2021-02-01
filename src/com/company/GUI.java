@@ -93,6 +93,20 @@ public class GUI implements ActionListener{
                 fileChooser.addChoosableFileFilter(filter);
                 fileChooser.setDialogTitle("Which directory to save");
                 int userSelection = fileChooser.showSaveDialog(splitPane); // open a file dialog to user can naviagte to target directory
+                switch (userSelection) {
+                    case JFileChooser.APPROVE_OPTION: {
+                        String path = fileChooser.getSelectedFile().getPath();
+                        if (path.endsWith(".json")) {
+                        } else {
+                            path += ".json";
+                        } try {
+                            new JSONWriter(model.getFrame()).writeJSON(path);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }˚
+                    }
+                }
+                }
         }
     }
 
