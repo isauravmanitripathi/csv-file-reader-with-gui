@@ -79,6 +79,49 @@ public class Model {
 
     }
 
+    private String countFrequency(String columnName) throws Exception {
+        StringBuilder data = new StringBuilder();
+        ArrayList<String> races = new ArrayList<>();
+        ArrayList<Column> columns = dataFrame.getColumns();
+        for (int j = 0, columnsSize = columns.size(); j < columnsSize; j++) {
+            Column column = columns.get(j);
+            if (!column.getName().toLowerCase().equals(columnName)) {
+                continue;
+            }
+            for (int i = column.getSize() - 1; i >= 0; i--) races.add(column.getRowValue(i));
+            Set<String> set = new HashSet<String>(races);
+            set.forEach(value -> data.append(value).append(": ").append(Collections.frequency(races, value)).append(System.lineSeparator()));
+            data.setLength(data.length() - 1);
+            return data.toString();
+        }
+        return null;
+    }
+
+
+    public String raceData() throws Exception {
+        return countFrequency("race");
+    }
+
+
+    public String ethnicityData() throws Exception {
+        return countFrequency("ethnicity");
+    }
+
+
+    public String cityData() throws Exception {
+        return countFrequency("city");
+    }
+
+
+    public String genderData() throws Exception {
+        return countFrequency("gender");
+    }
+
+
+    public String birthplaceData() throws Exception {
+        return countFrequency("birthplace");
+    }
+
 
 
 }
