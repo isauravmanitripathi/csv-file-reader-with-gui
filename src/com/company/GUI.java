@@ -58,8 +58,8 @@ public class GUI implements ActionListener{
     public void actionPerformed(ActionEvent event) {
 
         if (!(event.getSource() instanceof JCheckBox)) {
-            String name = ((Component ) event.getSource()).getName();
-            if ("Open".equals (name)) {
+            String name = ((Component) event.getSource()).getName();
+            if ("Open".equals(name)) {
                 fileChooser.addChoosableFileFilter(filter); // this will only allow CSV files
                 fileChooser.setAcceptAllFileFilterUsed(false);
                 if (fileChooser.showOpenDialog(splitPane) == JFileChooser.APPROVE_OPTION) {
@@ -69,8 +69,8 @@ public class GUI implements ActionListener{
 
                         try {
                             model.readCSV(file);
-                            updateFrame(model.getFrame(). file.getName());
-                        } catch (Exception e){
+                            updateFrame(model.getFrame().file.getName());
+                        } catch (Exception e) {
                             JOptionPane.showMessageDialog(new JFrame("ERROR Message"), "Program was unable to read the choosen file", JOptionPane.ERROR_MESSAGE);
                         }
                     }
@@ -80,8 +80,8 @@ public class GUI implements ActionListener{
 
                         try {
                             model.readCSV(file);
-                            updateFrame(model.getFrame(). file.getName());
-                        } catch (Exception e){
+                            updateFrame(model.getFrame().file.getName());
+                        } catch (Exception e) {
                             JOptionPane.showMessageDialog(new JFrame("ERROR Message"), "Program was unable to read the choosen file", JOptionPane.ERROR_MESSAGE);
                         }
                     }
@@ -99,16 +99,30 @@ public class GUI implements ActionListener{
                         if (path.endsWith(".json")) {
                         } else {
                             path += ".json";
-                        } try {
+                        }
+                        try {
                             new JSONWriter(model.getFrame()).writeJSON(path);
                         } catch (Exception e) {
                             e.printStackTrace();
-                        }˚
+                        }
                     }
                 }
+            } else {
+                if (! "New Window..".equals(name)) {
+                    if ("Exit".equals(name)) {
+                        System.exit(0); // end program here
+                    }
+                } else {
+                    new GUI(JFrame.DISPOSE_ON_CLOSE).run(); // this will open a new GUI
                 }
         }
-    }
+    } else {
+            for (int i = 0; i < boxes.length; i++) {
+                if (boxes[i].isSelected()) show(i);
+                else if (!boxes[i].isSelected()) hide(i);
+
+            }
+        }
 
 
 
