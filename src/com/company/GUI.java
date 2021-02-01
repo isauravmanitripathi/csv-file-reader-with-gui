@@ -8,6 +8,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import javax.swing.text.TableView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -174,8 +175,50 @@ public class GUI implements ActionListener{
         jFrame.getContentPane().add(BorderLayout.CENTER, scrollPane);
         jFrame.setSize((int) (screenSize.width * 4.0/5.0), (int) (screenSize.height * 4.0/5.0));
         jFrame.setLocationRelativeTo(null);
-        jFrame.add(scrollPane)
+        jFrame.add(scrollPane);
+        JPanel bottomPanel;
+        bottomPanel = new JPanel();
+        textField = new JTextField(20);
+        rowSorter = new TableRowSorter<TabelModel>(table.getModel());
+        table.setRowSorter(rowSorter);
+        textField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                String text = textField.getText();
+                // ignore this case in search
+                switch (text.trim().length()) {
+                    case 0:
+                        rowSorter.setRowFilter(null);
+                        break;
+                    default:
+                        rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                        break;
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                String text = textField.getText();
+                if (text.trim().length() != 0) {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                } else {
+                    rowSorter.setRowFilter(null);
+                }
+
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) { thow new UnsupportedOperationException();
+
+            }
+        });
+
+        bottomPanel.add(new JLabel("Search"), BorderLayout.WEST);
+        bottomPanel.add(textField);
+        jFrame.getContentPane().add(BorderLayout.SOUTH, bottomPanel);
 
     }
+
+
 
 }
