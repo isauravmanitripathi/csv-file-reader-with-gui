@@ -153,8 +153,28 @@ public class GUI implements ActionListener{
         menuFileButton.add(exit);
         createCheckBoxes(model.getColumnNames());
         table = new JTable(model.getRows(), model.getColumnNames()) {
-            public boolean
-        }
+            public boolean isCellEditable (int row, int column) { return false; }
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component c = super.prepareRenderer(renderer, row, column);
+                Color color = table.getBackground();
+                if (isRowSelected(row)) {
+                    return c;
+                }
+                c.setBackground(row % 2 == 0 ? getBackground() : new Color(255, 240, 240));
+                return c;
+            }
+        };
+
+        table.setFont(new Font("ComicSansMS", Font.PLAIN, table.getFont().getSize()));
+        table.getTableHeader().setReorderingAllowed(false);
+        table.setPreferredScrollableViewportSize(new Dimension(500,100));
+        table.setFillsViewportHeight(true);
+        JScrollPane scrollPane;
+        scrollPane = new JScrollPane(table);
+        jFrame.getContentPane().add(BorderLayout.CENTER, scrollPane);
+        jFrame.setSize((int) (screenSize.width * 4.0/5.0), (int) (screenSize.height * 4.0/5.0));
+        jFrame.setLocationRelativeTo(null);
+        jFrame.add(scrollPane)
 
     }
 
