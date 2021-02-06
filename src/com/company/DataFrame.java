@@ -27,6 +27,32 @@ public class DataFrame {
     }
 
 
+    pulic String[] getColumnNames() {
+        String[] columnNames;
+        columnNames = new String[this.getColumnCount()];
+        int i = 0;
+        while (i < this.getColumnCount()) {
+            columnNames[i] = this.getColumns().get(i).getName();
+            i++;
+        }
+        return columnNames;
+    }
 
+    public String[][] getRows() throws Exception {
+        int numColumns = this.getColumnCount();
+        int numRows = this.getRowCount();
+        String [][] data = new String[numRows][numColumns];
+        for (int i = 0; i < numColumns; i++) {
+            int j = 0;
+            while (j < numRows) {
+                data[j][i] = this.getValue(i,j);
+                j++;
+            }
+        }
+
+        return data;
+    }
+
+    public int getRowCount() { return columns.get(0).getSize(); }
 
 }
